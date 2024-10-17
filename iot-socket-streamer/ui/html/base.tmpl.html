@@ -1,0 +1,18 @@
+{{define "base"}}
+<!doctype html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <title>{{template "title" .}} - IoT Event Streamer</title>
+</head>
+<body>
+    <header>
+        <h1><a href='/'>IoT Event Streamer</a></h1>
+    </header>
+    <main>
+        {{template "main" .}}
+    </main>
+    <footer>Powered by <a href='https://go.dev'>Go</a></footer>
+</body>
+</html>
+{{end}}

@@ -1,0 +1,25 @@
+{{define "title"}}Home{{end}}
+
+{{define "main"}}
+    <h2>BME680 Sensor Data</h2>
+    <p>Temperature: <span id="temperature">{{.Temperature}}</span></p>
+    <p>Humidity: <span id="humidity">{{.Humidity}}</span></p>
+    <p>Pressure: <span id="pressure">{{.Pressure}}</span></p>
+    <p>Altitude: <span id="altitude">{{.Altitude}}</span></p>
+
+    <script>
+        const ws = new WebSocket("ws://localhost:8080/ws");
+
+        ws.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            document.getElementById("temperature").innerText = data.Temperature;
+            document.getElementById("humidity").innerText = data.Humidity;
+            document.getElementById("pressure").innerText = data.Pressure;
+            document.getElementById("altitude").innerText = data.Altitude;
+        };
+
+        ws.onerror = function(event) {
+            console.error("WebSocket error observed:", event);
+        };
+    </script>
+{{end}}
