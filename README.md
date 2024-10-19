@@ -25,4 +25,4 @@ Three different components that work together to stream sensor data from a Waves
 
 ### To Do
 
-A lot that probably will never get finished 😅...most important thing is to get web sockets working on a live domain and not just locally, at moment you have to refresh the page for new sensor data...running it locally web sockets works...etc...refactor all of the code, add better error handling, make the landing page look nicer, add more sensors, etc...It's embarassingly basic...Go is so flexible, I had no idea it was as easy as it was for writing HTTP-based applications.
+A lot that probably will never get finished 😅...most important thing is to get web sockets working on a live domain and not just locally, at moment you have to refresh the page for new sensor data on a live domain...if running it locally web sockets work...and...refactor all of the code, add better error handling, make the landing page look nicer, add more sensors, etc...It's embarassingly basic...Go is so flexible, I had no idea it was as easy as it was for writing HTTP-based applications.
