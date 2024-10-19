@@ -31,7 +31,6 @@ var upgrader = websocket.Upgrader{
 }
 
 // ------------------------------------------------------------
-
 func wsHandler(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -53,7 +52,6 @@ func wsHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // ------------------------------------------------------------
-
 func home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
@@ -85,7 +83,6 @@ func home(w http.ResponseWriter, r *http.Request) {
 }
 
 // ------------------------------------------------------------
-
 func createSensorData(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		w.WriteHeader(http.StatusMethodNotAllowed)
@@ -104,9 +101,10 @@ func createSensorData(w http.ResponseWriter, r *http.Request) {
 	bodyString := string(body)
 	log.Println("Received data:", bodyString)
 
-	// Split the string by spaces to separate the sensor values
-	sensorValue := strings.Fields(bodyString)
-	if len(sensorValue) < 4 {
+	// Split the string by commas to separate the sensor values
+	sensorValues := strings.Split(bodyString, ",")
+	log.Println("Parsed sensor values:", sensorValues)
+	if len(sensorValues) < 4 {
 		http.Error(w, "Invalid data format", http.StatusBadRequest) // Response body: Invalid data format
 		return
 	}
@@ -114,10 +112,10 @@ func createSensorData(w http.ResponseWriter, r *http.Request) {
 	// Extract the sensor values
 	mu.Lock()
 	sensorData = SensorData{
-		Temperature: sensorValue[0],
-		Humidity:    sensorValue[1],
-		Pressure:    sensorValue[2],
-		Altitude:    sensorValue[3],
+		Temperature: strings.TrimSpace(sensorValues[0]),
+		Humidity:    strings.TrimSpace(sensorValues[1]),
+		Pressure:    strings.TrimSpace(sensorValues[2]),
+		Altitude:    strings.TrimSpace(sensorValues[3]),
 	}
 	mu.Unlock()
 
@@ -127,8 +125,6 @@ func createSensorData(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Sensor data received successfully"))
 }
-
-// ------------------------------------------------------------
 
 func main() {
 	// Create a new ServeMux and register the routes
