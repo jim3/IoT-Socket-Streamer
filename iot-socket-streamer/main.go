@@ -31,6 +31,7 @@ var upgrader = websocket.Upgrader{
 }
 
 // ------------------------------------------------------------
+
 func wsHandler(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -52,6 +53,7 @@ func wsHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // ------------------------------------------------------------
+
 func home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
@@ -83,6 +85,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 }
 
 // ------------------------------------------------------------
+
 func createSensorData(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		w.WriteHeader(http.StatusMethodNotAllowed)
