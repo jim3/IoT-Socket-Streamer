@@ -105,8 +105,8 @@ func createSensorData(w http.ResponseWriter, r *http.Request) {
 	log.Println("Received data:", bodyString)
 
 	// Split the string by spaces to separate the sensor values
-	parts := strings.Fields(bodyString)
-	if len(parts) < 4 {
+	sensorValue := strings.Fields(bodyString)
+	if len(sensorValue) < 4 {
 		http.Error(w, "Invalid data format", http.StatusBadRequest) // Response body: Invalid data format
 		return
 	}
@@ -114,10 +114,10 @@ func createSensorData(w http.ResponseWriter, r *http.Request) {
 	// Extract the sensor values
 	mu.Lock()
 	sensorData = SensorData{
-		Temperature: parts[0],
-		Humidity:    parts[1],
-		Pressure:    parts[2],
-		Altitude:    parts[3],
+		Temperature: sensorValue[0],
+		Humidity:    sensorValue[1],
+		Pressure:    sensorValue[2],
+		Altitude:    sensorValue[3],
 	}
 	mu.Unlock()
 
