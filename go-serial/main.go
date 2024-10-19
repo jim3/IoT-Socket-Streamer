@@ -35,6 +35,7 @@ func serialPortConfig(portName string, mode *serial.Mode) {
 	defer port.Close()
 
 	buff := make([]byte, 100)
+	var dataBuffer bytes.Buffer
 
 	for {
 		n, err := port.Read(buff)
@@ -47,7 +48,6 @@ func serialPortConfig(portName string, mode *serial.Mode) {
 			break
 		}
 
-		var dataBuffer bytes.Buffer
 		dataBuffer.Write(buff[:n])
 
 		data := dataBuffer.String()
